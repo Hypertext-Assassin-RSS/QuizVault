@@ -16,12 +16,22 @@ export default function Welcome() {
     const data = { name, phone, grade };
 
     try {
+      const userCheck = await pb.collection('Quiz_Users').getList(1, 1, {
+        filter: `phone="${phone}"`,
+      });
+
+      if (userCheck.totalItems > 0) {
+        toast.error('User already exists!');
+        return;
+      }
+
+
       await toast.promise(
         pb.collection('Quiz_Users').create(data),
         {
           pending: 'Submitting...',
           success: 'Submission Successful',
-          error: 'Submission Failed! '
+          error: 'Submission Failed!',
         }
       );
 
@@ -29,7 +39,8 @@ export default function Welcome() {
       setPhone('');
       setGrade('');
     } catch (error) {
-      console.error('Error creating user record:', error);
+      console.error('Error processing submission:', error);
+      toast.error('An unexpected error occurred.');
     }
   };
 
