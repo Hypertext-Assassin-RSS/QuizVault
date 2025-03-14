@@ -1,5 +1,5 @@
-
 "use client"
+
 
 import { useEffect, useState } from "react";
 import { GameState } from "@/app/interface/quiz";
@@ -8,7 +8,7 @@ import Timer from "@/app/components/timer";
 import QuestionCard from "@/app/components/question-card";
 import { QUESTIONS } from "@/app/data/questions";
 import GameOver from "@/app/components/game-over";
-import Welcome from "./components/welcome";
+import Welcome from "@/app/components/welcome";
 
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>("welcome");
@@ -37,6 +37,10 @@ export default function Home() {
     setSelectedAnswer(null);
   };
 
+  const handleUserRegistered = () => {
+    setGameState("start");
+  };
+
   const handleAnswer = (index: number): void => {
     setSelectedAnswer(index);
     const isCorrect = index === QUESTIONS[currentQuestion].correct;
@@ -49,7 +53,7 @@ export default function Home() {
       if (currentQuestion < QUESTIONS.length - 1) {
         setCurrentQuestion((prev) => prev + 1);
         setSelectedAnswer(null);
-        setTimeLeft(30); // Reset timer next question after answering
+        setTimeLeft(30); // Reset timer for next question
       } else {
         setGameState("end");
       }
@@ -57,16 +61,16 @@ export default function Home() {
   };
 
   const handlePrevious = () => {
-    if (selectedAnswer !== null) return; // stop changing question if answered
+    if (selectedAnswer !== null) return; // Prevent changing question if answer already selected
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
       setSelectedAnswer(null);
-      setTimeLeft(30); // reset timer when previous question
+      setTimeLeft(30); // Reset timer on previous question
     }
   };
 
   const handleSkip = () => {
-    if (selectedAnswer !== null) return; // stop skipping if  answered
+    if (selectedAnswer !== null) return; // Prevent skipping if answer already selected
     if (currentQuestion < QUESTIONS.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
@@ -79,8 +83,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto h-fit bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        {gameState == "welcome" && (
-          <Welcome />
+        {gameState === "welcome" && (
+          <Welcome onUserRegistered={handleUserRegistered} />
         )}
         {gameState === "start" && <StartScreen onStart={handleStart} />}
         {gameState === "playing" && (

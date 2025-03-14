@@ -1,12 +1,18 @@
+"use client"
+
 
 import React, { useState } from 'react';
 import PocketBase from 'pocketbase';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+interface WelcomeProps {
+  onUserRegistered: () => void;
+}
+
 const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_API_URL);
 
-export default function Welcome() {
+export default function Welcome({ onUserRegistered }: WelcomeProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [grade, setGrade] = useState('');
@@ -20,20 +26,25 @@ export default function Welcome() {
         filter: `phone="${phone}"`,
       });
 
+      let userRecord;
       if (userCheck.totalItems > 0) {
-        toast.error('User already exists!');
-        return;
+        userRecord = userCheck.items[0];
+        toast.info('Welcome back!');
+      } else {
+        userRecord = await toast.promise(
+          pb.collection('Quiz_Users').create(data),
+          {
+            pending: 'Submitting...',
+            success: 'Submission Successful 👌',
+            error: 'Submission Failed 🤯'
+          }
+        );
       }
 
+      localStorage.setItem('user', JSON.stringify(userRecord));
 
-      await toast.promise(
-        pb.collection('Quiz_Users').create(data),
-        {
-          pending: 'Submitting...',
-          success: 'Submission Successful',
-          error: 'Submission Failed!',
-        }
-      );
+      onUserRegistered();
+
 
       setName('');
       setPhone('');
