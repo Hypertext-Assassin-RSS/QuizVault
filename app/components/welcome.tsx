@@ -35,8 +35,8 @@ export default function Welcome({ onUserRegistered }: WelcomeProps) {
           pb.collection('Quiz_Users').create(data),
           {
             pending: 'Submitting...',
-            success: 'Submission Successful 👌',
-            error: 'Submission Failed 🤯'
+            success: 'Submission Successful',
+            error: 'Submission Failed!'
           }
         );
       }
