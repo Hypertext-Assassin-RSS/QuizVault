@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useEffect, useState } from "react";
@@ -27,7 +28,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [timeLeft, gameState]);
 
-
   const handleStart = () => {
     setGameState("playing");
     setTimeLeft(30);
@@ -54,6 +54,24 @@ export default function Home() {
     }, 1500);
   };
 
+  const handlePrevious = () => {
+    if (selectedAnswer !== null) return; // prevent changing question if answered
+    if (currentQuestion > 0) {
+      setCurrentQuestion((prev) => prev - 1);
+      setSelectedAnswer(null);
+    }
+  };
+
+  const handleSkip = () => {
+    if (selectedAnswer !== null) return; // prevent skipping if already answered
+    if (currentQuestion < QUESTIONS.length - 1) {
+      setCurrentQuestion((prev) => prev + 1);
+      setSelectedAnswer(null);
+    } else {
+      setGameState("end");
+    }
+  };
+
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto h-fit bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
@@ -68,6 +86,22 @@ export default function Home() {
               totalQuestions={QUESTIONS.length}
               currentQuestion={currentQuestion}
             />
+            <div className="mt-6 flex justify-between">
+              <button
+                onClick={handlePrevious}
+                disabled={currentQuestion === 0 || selectedAnswer !== null}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Previous Question
+              </button>
+              <button
+                onClick={handleSkip}
+                disabled={selectedAnswer !== null}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Skip Question
+              </button>
+            </div>
           </div>
         )}
         {gameState === "end" && (
