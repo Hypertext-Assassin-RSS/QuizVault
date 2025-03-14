@@ -48,6 +48,7 @@ export default function Home() {
       if (currentQuestion < QUESTIONS.length - 1) {
         setCurrentQuestion((prev) => prev + 1);
         setSelectedAnswer(null);
+        setTimeLeft(30); // Reset timer next question after answering
       } else {
         setGameState("end");
       }
@@ -55,18 +56,20 @@ export default function Home() {
   };
 
   const handlePrevious = () => {
-    if (selectedAnswer !== null) return; // prevent changing question if answered
+    if (selectedAnswer !== null) return; // stop changing question if answered
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
       setSelectedAnswer(null);
+      setTimeLeft(30); // reset timer when previous question
     }
   };
 
   const handleSkip = () => {
-    if (selectedAnswer !== null) return; // prevent skipping if already answered
+    if (selectedAnswer !== null) return; // stop skipping if  answered
     if (currentQuestion < QUESTIONS.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
+      setTimeLeft(30);
     } else {
       setGameState("end");
     }
