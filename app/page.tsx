@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useEffect, useState } from "react";
 import { GameState } from "@/app/interface/quiz";
 import StartScreen from "@/app/components/start-screen";
@@ -16,6 +15,13 @@ export default function Home() {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(30);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setGameState("start");
+    }
+  }, []);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
@@ -125,4 +131,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
+}  
