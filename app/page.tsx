@@ -1,6 +1,8 @@
+
 "use client"
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { GameState } from "@/app/interface/quiz";
 import StartScreen from "@/app/components/start-screen";
 import Timer from "@/app/components/timer";
@@ -50,11 +52,9 @@ export default function Home() {
   const handleAnswer = (index: number): void => {
     setSelectedAnswer(index);
     const isCorrect = index === QUESTIONS[currentQuestion].correct;
-
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
-
     setTimeout(() => {
       if (currentQuestion < QUESTIONS.length - 1) {
         setCurrentQuestion((prev) => prev + 1);
@@ -94,7 +94,13 @@ export default function Home() {
         )}
         {gameState === "start" && <StartScreen onStart={handleStart} />}
         {gameState === "playing" && (
-          <div className="p-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.5 }}
+            className="p-8"
+          >
             <Timer timeLeft={timeLeft} />
             <QuestionCard
               question={QUESTIONS[currentQuestion]}
@@ -119,7 +125,7 @@ export default function Home() {
                 Skip Question
               </button>
             </div>
-          </div>
+          </motion.div>
         )}
         {gameState === "end" && (
           <GameOver
@@ -131,4 +137,4 @@ export default function Home() {
       </div>
     </div>
   );
-}  
+}
