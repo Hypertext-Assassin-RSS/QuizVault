@@ -6,6 +6,7 @@ import StartScreen from "@/app/components/start-screen";
 import Timer from "@/app/components/timer";
 import QuestionCard from "@/app/components/question-card";
 import { QUESTIONS } from "@/app/data/questions";
+import GameOver from "@/app/components/game-over";
 
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>("start");
@@ -68,6 +69,13 @@ export default function Home() {
               currentQuestion={currentQuestion}
             />
           </div>
+        )}
+        {gameState === "end" && (
+          <GameOver
+            score={score}
+            totalQuestions={QUESTIONS.length}
+            onRestart={handleStart}
+          />
         )}
       </div>
     </div>
