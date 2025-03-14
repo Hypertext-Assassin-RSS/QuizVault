@@ -17,7 +17,7 @@ export default function Home() {
   const [score, setScore] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(30);
 
-  const changeGameState = (newState: GameState, delay: number = 1000) => {
+  const changeGameState = (newState: GameState, delay: number = 1500) => {
     setTimeout(() => {
       setGameState(newState);
     }, delay);
