@@ -8,9 +8,10 @@ import Timer from "@/app/components/timer";
 import QuestionCard from "@/app/components/question-card";
 import { QUESTIONS } from "@/app/data/questions";
 import GameOver from "@/app/components/game-over";
+import Welcome from "./components/welcome";
 
 export default function Home() {
-  const [gameState, setGameState] = useState<GameState>("start");
+  const [gameState, setGameState] = useState<GameState>("welcome");
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -78,6 +79,9 @@ export default function Home() {
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto h-fit bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        {gameState == "welcome" && (
+          <Welcome />
+        )}
         {gameState === "start" && <StartScreen onStart={handleStart} />}
         {gameState === "playing" && (
           <div className="p-8">
