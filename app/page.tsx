@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { GameState } from "@/app/interface/quiz";
 import StartScreen from "@/app/components/start-screen";
+import Timer from "@/app/components/timer";
 
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>("start");
@@ -29,6 +30,11 @@ export default function Home() {
     <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto h-fit bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         {gameState === "start" && <StartScreen onStart={handleStart} />}
+        {gameState === "playing" && (
+          <div className="p-8">
+            <Timer timeLeft={timeLeft} />
+          </div>
+        )}
       </div>
     </div>
   );
