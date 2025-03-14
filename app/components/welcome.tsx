@@ -112,9 +112,9 @@ export default function Welcome({ onUserRegistered }: WelcomeProps) {
                   className="appearance-none text-gray-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">Select Grade</option>
-                  <option value="G3">Grade 3</option>
-                  <option value="G4">Grade 4</option>
-                  <option value="G5">Grade 5</option>
+                  <option value="Grade 3">Grade 3</option>
+                  <option value="Grade 4">Grade 4</option>
+                  <option value="Grade 5">Grade 5</option>
                 </select>
               </div>
             </div>
