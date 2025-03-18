@@ -1,4 +1,5 @@
-import { Trophy } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 
 interface GameOverProps {
   onRestart: () => void;
@@ -13,7 +14,11 @@ export default function GameOver({
   const percentage = Math.round((score / totalQuestions) * 100);
   return (
     <div className="p-8 text-center">
-      <Trophy className="w-16 h-16 mx-auto text-yellow-500 mb-4" />
+      <DotLottieReact
+        src="https://lottie.host/c3f3acb6-bc0e-4819-aba3-6d37091bff20/x63qGFVie7.json"
+        loop
+        autoplay
+      />
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Game Over!</h2>
       <p className="text-lg text-gray-600">
         Final Score: {score}/{totalQuestions}
