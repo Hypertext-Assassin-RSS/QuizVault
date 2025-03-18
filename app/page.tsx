@@ -6,7 +6,6 @@ import { GameState, Question } from "@/app/interface/quiz";
 import StartScreen from "@/app/components/start-screen";
 import Timer from "@/app/components/timer";
 import QuestionCard from "@/app/components/question-card";
-import { QUESTIONS } from "@/app/data/questions";
 import GameOver from "@/app/components/game-over";
 import Welcome from "@/app/components/welcome";
 import { User } from "./interface/user";
