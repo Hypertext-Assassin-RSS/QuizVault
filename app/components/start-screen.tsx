@@ -54,9 +54,9 @@ export default function StartScreen({ onStart }: StartScreenProps) {
       <p className="text-gray-600 mb-8">{questionnaire?.description}</p>
       <button
         onClick={onStart}
-        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+        className="group inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
       >
-        <Play className="w-5 h-5 mr-2" />
+        <Play className="w-5 h-5 mr-2 transition-transform duration-1000 group-hover:rotate-360" />
         Start Quiz
       </button>
     </div>
