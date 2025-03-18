@@ -128,6 +128,7 @@ export default function Home() {
   };
 
   const transitionSettings = { duration: 0.5, delay: 0.2 };
+  const fadeTransition = { duration: 0.5 };
 
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -163,7 +164,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
-              transition={transitionSettings}
+              transition={fadeTransition}
               className="p-8"
             >
               <Timer timeLeft={timeLeft} />
