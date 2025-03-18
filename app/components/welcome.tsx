@@ -32,17 +32,11 @@ export default function Welcome({ onUserRegistered }: WelcomeProps) {
         toast.info('Welcome back!');
         window.location.reload();
       } else {
-        userRecord = await toast.promise(
-          pb.collection('Quiz_Users').create(data),
-          {
-            pending: 'Submitting...',
-            success: 'Submission Successful',
-            error: 'Submission Failed!'
-          }
-        );
+        userRecord = await toast.promise(pb.collection('Quiz_Users').create(data),{pending: 'Submitting...',success: 'Submission Successful',error: 'Submission Failed!'});
       }
 
       localStorage.setItem('user', JSON.stringify(userRecord));
+      window.location.reload();
 
       onUserRegistered();
 

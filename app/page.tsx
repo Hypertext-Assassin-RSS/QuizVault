@@ -21,7 +21,7 @@ export default function Home() {
   const [score, setScore] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(30);
   const [user, setUser] = useState<User>();
-  const [questions, setQuestions] = useState<Question[]>([])
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   const changeGameState = (newState: GameState, delay: number = 1500) => {
     setTimeout(() => {
@@ -47,36 +47,39 @@ export default function Home() {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else if (timeLeft === 0 && gameState === "playing") {
-      changeGameState("end");
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion((prev) => prev + 1);
+        setTimeLeft(30);
+        setSelectedAnswer(null);
+      } else {
+        changeGameState("end");
+      }
     }
     return () => clearInterval(timer);
-  }, [timeLeft, gameState]);
+  }, [timeLeft, gameState, currentQuestion, questions.length]);
 
+  useEffect(() => {
+    const data = localStorage.getItem('user');
+    if (data) {
+      setUser(JSON.parse(data));
+    }
+  }, []);
 
-      useEffect(() => {
-        const data = localStorage.getItem('user');
-        if (data) {
-          setUser(JSON.parse(data));
-        }
-      }, []);
-    
-      useEffect(() => {
-        const fetchQuestion = async () => {
-          if (!user) return;
-          try {
-            const resultList = await pb.collection('Questions').getList(1, 50, {
-              filter: `grade="${user.grade}"`,
-            });
-            
-           setQuestions(resultList.items as Question[])
-           
-          } catch (error) {
-            console.error("Error fetching Questions:", error);
-          }
-        };
-    
-        fetchQuestion();
-      }, [user]);
+  useEffect(() => {
+    const fetchQuestion = async () => {
+      if (!user) return;
+      try {
+        const resultList = await pb.collection('Questions').getList(1, 50, {
+          filter: `grade="${user.grade}"`,
+        });
+        setQuestions(resultList.items as Question[]);
+      } catch (error) {
+        console.error("Error fetching Questions:", error);
+      }
+    };
+
+    fetchQuestion();
+  }, [user]);
 
   const handleStart = () => {
     changeGameState("playing");
@@ -223,7 +226,7 @@ export default function Home() {
         pauseOnHover
         theme="light"
         transition={Bounce}
-        />
+      />
     </div>
   );
 }
