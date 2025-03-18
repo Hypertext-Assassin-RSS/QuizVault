@@ -2,13 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { GameState } from "@/app/interface/quiz";
+import { GameState, Question } from "@/app/interface/quiz";
 import StartScreen from "@/app/components/start-screen";
 import Timer from "@/app/components/timer";
 import QuestionCard from "@/app/components/question-card";
 import { QUESTIONS } from "@/app/data/questions";
 import GameOver from "@/app/components/game-over";
 import Welcome from "@/app/components/welcome";
+import { User } from "./interface/user";
+import PocketBase from 'pocketbase';
+
+const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_API_URL);
 
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>("welcome");
@@ -16,6 +20,8 @@ export default function Home() {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(30);
+  const [user, setUser] = useState<User>();
+  const [questions, setQuestions] = useState<Question[]>([])
 
   const changeGameState = (newState: GameState, delay: number = 1500) => {
     setTimeout(() => {
@@ -42,6 +48,32 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [timeLeft, gameState]);
 
+
+      useEffect(() => {
+        const data = localStorage.getItem('user');
+        if (data) {
+          setUser(JSON.parse(data));
+        }
+      }, []);
+    
+      useEffect(() => {
+        const fetchQuestion = async () => {
+          if (!user) return;
+          try {
+            const resultList = await pb.collection('Questions').getList(1, 50, {
+              filter: `grade="${user.grade}"`,
+            });
+            
+           setQuestions(resultList.items as Question[])
+           
+          } catch (error) {
+            console.error("Error fetching Questions:", error);
+          }
+        };
+    
+        fetchQuestion();
+      }, [user]);
+
   const handleStart = () => {
     changeGameState("playing");
     setTimeLeft(30);
@@ -56,12 +88,12 @@ export default function Home() {
 
   const handleAnswer = (index: number): void => {
     setSelectedAnswer(index);
-    const isCorrect = index === QUESTIONS[currentQuestion].correct;
+    const isCorrect = index === questions[currentQuestion].correct;
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
     setTimeout(() => {
-      if (currentQuestion < QUESTIONS.length - 1) {
+      if (currentQuestion < questions.length - 1) {
         setCurrentQuestion((prev) => prev + 1);
         setSelectedAnswer(null);
         setTimeLeft(30); // Reset timer for next question
@@ -82,7 +114,7 @@ export default function Home() {
 
   const handleSkip = () => {
     if (selectedAnswer !== null) return; // Prevent skipping if answer already selected
-    if (currentQuestion < QUESTIONS.length - 1) {
+    if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
       setTimeLeft(30);
@@ -132,10 +164,10 @@ export default function Home() {
             >
               <Timer timeLeft={timeLeft} />
               <QuestionCard
-                question={QUESTIONS[currentQuestion]}
+                question={questions[currentQuestion]}
                 onAnswerSelect={handleAnswer}
                 selectedAnswer={selectedAnswer}
-                totalQuestions={QUESTIONS.length}
+                totalQuestions={questions.length}
                 currentQuestion={currentQuestion}
               />
               <div className="mt-6 flex justify-between">
@@ -167,7 +199,7 @@ export default function Home() {
             >
               <GameOver
                 score={score}
-                totalQuestions={QUESTIONS.length}
+                totalQuestions={questions.length}
                 onRestart={handleStart}
               />
             </motion.div>

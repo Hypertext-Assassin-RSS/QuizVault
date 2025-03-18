@@ -22,6 +22,10 @@ export default function QuestionCard({
     return "opacity-50";
   };
 
+
+  console.log('Question',question);
+  
+
   return (
     <div>
       <h2 className="text-xl font-semibold text-gray-800 mb-2">
