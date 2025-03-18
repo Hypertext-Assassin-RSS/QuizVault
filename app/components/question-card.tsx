@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from "lucide-react";
+
 import { Question } from "@/app/interface/quiz";
 import { motion } from "framer-motion";
 
@@ -9,6 +9,7 @@ interface QuestionCardProps {
   totalQuestions: number;
   currentQuestion: number;
 }
+
 export default function QuestionCard({
   question,
   selectedAnswer,
@@ -17,28 +18,16 @@ export default function QuestionCard({
   currentQuestion,
 }: QuestionCardProps) {
   const getButtonClass = (index: number): string => {
-    if (selectedAnswer === null) return "hover:bg-gray-100";
-    if (index === question.correct) return "bg-green-100 border-green-500";
-    if (selectedAnswer === index) return "bg-red-100 border-red-500";
-    return "opacity-50";
+    return "hover:bg-gray-100";
   };
 
-
-  console.log('Question',question);
+  console.log('Question', question);
 
   const optionVariants = {
     initial: { x: "-100%", opacity: 0 },
     animate: { x: 0, opacity: 1, transition: { duration: 0.5 } },
     exit: { x: "100%", opacity: 0, transition: { duration: 0.5 } },
   };
-
-
-  const iconVariants = {
-    initial: { scale: 0, opacity: 0 },
-    animate: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 20 } },
-  };
-
-  
 
   return (
     <div>
@@ -49,36 +38,17 @@ export default function QuestionCard({
 
       <div className="space-y-3">
         {question.options.map((option, index) => (
-          <motion.button  key={index}
+          <motion.button
+            key={index}
             onClick={() => selectedAnswer === null && onAnswerSelect(index)}
-            className={`w-full p-4 text-left border rounded-lg transition-all duration-300 ${getButtonClass(
-              index
-            )}`}
+            className={`w-full p-4 text-left border rounded-lg transition-all duration-300 ${getButtonClass(index)}`}
             variants={optionVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            >
-              <div className="flex items-center justify-between text-black">
+          >
+            <div className="flex items-center text-black">
               <span>{option}</span>
-              {selectedAnswer !== null && index === question.correct && (
-                <motion.div
-                  variants={iconVariants}
-                  initial="initial"
-                  animate="animate"
-                >
-                <CheckCircle className="w-5 h-5 text-green-500" />
-              </motion.div>
-              )}
-              {selectedAnswer === index && index !== question.correct && (
-                <motion.div
-                  variants={iconVariants}
-                  initial="initial"
-                  animate="animate"
-                >
-                  <XCircle className="w-5 h-5 text-red-500" />
-                </motion.div>
-              )}
             </div>
           </motion.button>
         ))}
