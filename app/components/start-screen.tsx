@@ -15,10 +15,14 @@ export default function StartScreen({ onStart }: StartScreenProps) {
   const [questionnaire,setQuestionnaire] = useState<Questionnaire>()
 
   useEffect(() => {
-    const data = localStorage.getItem('user');
-    if (data) {
-      setUser(JSON.parse(data));
+    const fetchUser = async () => {
+      const data = await localStorage.getItem('user');
+      if (data) {
+        setUser(JSON.parse(data));
+      }
     }
+
+    fetchUser();
   }, []);
 
   useEffect(() => {

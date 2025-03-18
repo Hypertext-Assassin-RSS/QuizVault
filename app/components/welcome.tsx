@@ -30,6 +30,7 @@ export default function Welcome({ onUserRegistered }: WelcomeProps) {
       if (userCheck.totalItems > 0) {
         userRecord = userCheck.items[0];
         toast.info('Welcome back!');
+        window.location.reload();
       } else {
         userRecord = await toast.promise(
           pb.collection('Quiz_Users').create(data),
