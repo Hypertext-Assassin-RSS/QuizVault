@@ -31,6 +31,13 @@ export default function QuestionCard({
     animate: { x: 0, opacity: 1, transition: { duration: 0.5 } },
     exit: { x: "100%", opacity: 0, transition: { duration: 0.5 } },
   };
+
+
+  const iconVariants = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 20 } },
+  };
+
   
 
   return (
@@ -55,10 +62,22 @@ export default function QuestionCard({
               <div className="flex items-center justify-between text-black">
               <span>{option}</span>
               {selectedAnswer !== null && index === question.correct && (
+                <motion.div
+                  variants={iconVariants}
+                  initial="initial"
+                  animate="animate"
+                >
                 <CheckCircle className="w-5 h-5 text-green-500" />
+              </motion.div>
               )}
               {selectedAnswer === index && index !== question.correct && (
-                <XCircle className="w-5 h-5 text-red-500" />
+                <motion.div
+                  variants={iconVariants}
+                  initial="initial"
+                  animate="animate"
+                >
+                  <XCircle className="w-5 h-5 text-red-500" />
+                </motion.div>
               )}
             </div>
           </motion.button>
