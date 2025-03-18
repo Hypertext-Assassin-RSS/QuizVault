@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import PocketBase from 'pocketbase';
-import { Slide, ToastContainer, toast } from 'react-toastify';
+import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface WelcomeProps {
@@ -123,21 +123,21 @@ export default function Welcome({ onUserRegistered }: WelcomeProps) {
               </button>
             </div>
           </form>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={true}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+        />
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Slide}
-      />
     </div>
   );
 }

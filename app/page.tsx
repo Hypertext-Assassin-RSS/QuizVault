@@ -103,7 +103,7 @@ export default function Home() {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion((prev) => prev + 1);
         setSelectedAnswer(null);
-        setTimeLeft(30); // Reset timer for next question
+        setTimeLeft(30);
       } else {
         changeGameState("end");
       }
@@ -111,16 +111,16 @@ export default function Home() {
   };
 
   const handlePrevious = () => {
-    if (selectedAnswer !== null) return; // Prevent changing question if answer already selected
+    if (selectedAnswer !== null) return; 
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
       setSelectedAnswer(null);
-      setTimeLeft(30); // Reset timer on previous question
+      setTimeLeft(30);
     }
   };
 
   const handleSkip = () => {
-    if (selectedAnswer !== null) return; // Prevent skipping if answer already selected
+    if (selectedAnswer !== null) return; 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
@@ -134,8 +134,8 @@ export default function Home() {
   const fadeTransition = { duration: 0.5 };
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto h-fit bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4 sm:p-6 lg:p-8">
+      <div className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <AnimatePresence>
           {gameState === "welcome" && (
             <motion.div
@@ -168,7 +168,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={fadeTransition}
-              className="p-8"
+              className="p-6"
             >
               <Timer timeLeft={timeLeft} />
               <QuestionCard
@@ -182,16 +182,16 @@ export default function Home() {
                 <button
                   onClick={handlePrevious}
                   disabled={currentQuestion === 0 || selectedAnswer !== null}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
-                  Previous Question
+                  Previous
                 </button>
                 <button
                   onClick={handleSkip}
                   disabled={selectedAnswer !== null}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
-                  Skip Question
+                  Skip
                 </button>
               </div>
             </motion.div>
@@ -213,20 +213,20 @@ export default function Home() {
             </motion.div>
           )}
         </AnimatePresence>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
     </div>
   );
 }
