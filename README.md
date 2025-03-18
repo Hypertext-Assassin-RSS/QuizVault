@@ -1,5 +1,4 @@
 
-
 <h1 align="center">
   <br>
   <img src="assets/quizvault.png" width="220">
@@ -18,7 +17,6 @@ QuizVault is a web application designed to create, manage, and take quizzes. Bui
   <img src="assets/Screenshot 2025-03-18 104710.png" alt="Screenshot 4" style="width:200px; margin: 10px;" />
   <img src="assets/Screenshot 2025-03-18 104751.png" alt="Screenshot 5" style="width:200px; margin: 10px;" />
 </div>
-
 
 ## Table of Contents
 - [Features](#features)
@@ -42,7 +40,8 @@ QuizVault is a web application designed to create, manage, and take quizzes. Bui
   - [Framer Motion](https://www.framer.com/motion/)
   - [React Toastify](https://fkhadra.github.io/react-toastify/)
 - **Backend:**
-  - [Pocketbase](https://pocketbase.io/)
+  - [PocketBase](https://pocketbase.io/)
+  - **PocketBase Collections JSON:** [View Schema](https://github.com/Hypertext-Assassin-RSS/QuizVault/blob/pocketbase/assets/pb_schema.json)
 
 ## Installation
 
