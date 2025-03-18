@@ -11,11 +11,12 @@ import GameOver from "@/app/components/game-over";
 import Welcome from "@/app/components/welcome";
 import { User } from "./interface/user";
 import PocketBase from 'pocketbase';
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_API_URL);
 
 export default function Home() {
-  const [gameState, setGameState] = useState<GameState>("welcome");
+  const [gameState, setGameState] = useState<GameState>("start");
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -32,7 +33,11 @@ export default function Home() {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
+      toast.info("Welcome back!");
       changeGameState("start");
+    } else {
+      toast.info("Enter Your Info First!");
+      changeGameState("welcome");
     }
   }, []);
 
@@ -206,6 +211,19 @@ export default function Home() {
           )}
         </AnimatePresence>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+        />
     </div>
   );
 }
