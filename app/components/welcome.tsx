@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import PocketBase from 'pocketbase';
-import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface WelcomeProps {
