@@ -1,6 +1,24 @@
-# QuizVault
+
+
+<h1 align="center">
+  <br>
+  <img src="assets/quizvault.png" width="220">
+  <br>
+  <b>QuizVault</b>
+  <br>
+</h1>
+<br>
 
 QuizVault is a web application designed to create, manage, and take quizzes. Built with modern technologies, it aims to provide a seamless user experience.
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+  <img src="assets/Screenshot 2025-03-18 104533.png" alt="Screenshot 1" style="width:200px; margin: 10px;" />
+  <img src="assets/Screenshot 2025-03-18 104559.png" alt="Screenshot 2" style="width:200px; margin: 10px;" />
+  <img src="assets/Screenshot 2025-03-18 104638.png" alt="Screenshot 3" style="width:200px; margin: 10px;" />
+  <img src="assets/Screenshot 2025-03-18 104710.png" alt="Screenshot 4" style="width:200px; margin: 10px;" />
+  <img src="assets/Screenshot 2025-03-18 104751.png" alt="Screenshot 5" style="width:200px; margin: 10px;" />
+</div>
+
 
 ## Table of Contents
 - [Features](#features)
@@ -12,7 +30,7 @@ QuizVault is a web application designed to create, manage, and take quizzes. Bui
 - [Contact](#contact)
 
 ## Features
-- Create and manage quizzes
+- Get User Info
 - User authentication and management
 - Real-time updates and animations
 - Responsive design
