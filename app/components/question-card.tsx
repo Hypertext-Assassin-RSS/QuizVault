@@ -18,10 +18,10 @@ export default function QuestionCard({
   currentQuestion,
 }: QuestionCardProps) {
   const getButtonClass = (index: number): string => {
-    return "hover:bg-gray-100";
+    return selectedAnswer === index 
+      ? "bg-blue-200 border-blue-500"
+      : "hover:bg-gray-100";
   };
-
-  console.log('Question', question);
 
   const optionVariants = {
     initial: { x: "-100%", opacity: 0 },
