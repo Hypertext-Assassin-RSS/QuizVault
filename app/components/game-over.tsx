@@ -1,4 +1,5 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { RefreshCw } from "lucide-react";
 
 
 interface GameOverProps {
@@ -26,9 +27,8 @@ export default function GameOver({
       <p className="mt-2 text-gray-500">({percentage}% correct)</p>
       <button
         onClick={onRestart}
-        className="mt-6 inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors≈"
-      >
-        Play Again
+        className="mt-6 transition-transform  inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700  group">
+        <RefreshCw className="mr-2 transition-transform duration-1000 group-hover:rotate-360"/> Play Again 
       </button>
     </div>
   );
