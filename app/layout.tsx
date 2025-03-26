@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "QuizVault",
   description: "QuizVault",
   icons: {
@@ -20,17 +20,20 @@ export const metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="description" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon"  />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
